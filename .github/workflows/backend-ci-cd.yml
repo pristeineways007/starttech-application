@@ -1,3 +1,6 @@
+Here's the complete updated `backend-ci-cd.yml`:
+
+```yaml
 name: Backend CI/CD
 
 on:
@@ -105,11 +108,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Deploy to EC2 via ASG rolling update
+      - name: Store secrets in SSM and deploy
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
+          aws ssm put-parameter --name "/starttech/MONGO_URI" --value "${{ secrets.MONGO_URI }}" --type SecureString --overwrite
+          aws ssm put-parameter --name "/starttech/DB_NAME" --value "${{ secrets.DB_NAME }}" --type String --overwrite
+          aws ssm put-parameter --name "/starttech/JWT_SECRET_KEY" --value "${{ secrets.JWT_SECRET_KEY }}" --type SecureString --overwrite
+          aws ssm put-parameter --name "/starttech/ECR_IMAGE" --value "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" --type String --overwrite
           aws autoscaling start-instance-refresh \
             --auto-scaling-group-name starttech-asg \
             --preferences MinHealthyPercentage=50,InstanceWarmup=60
@@ -132,3 +139,5 @@ jobs:
           aws logs create-log-group \
             --log-group-name /starttech/production/app \
             --region ${{ env.AWS_REGION }} || true
+```
+
