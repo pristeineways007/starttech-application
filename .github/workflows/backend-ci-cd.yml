@@ -136,5 +136,5 @@ jobs:
           aws logs create-log-group \
             --log-group-name /starttech/production/app \
             --region ${{ env.AWS_REGION }} || true
-```
+
 
