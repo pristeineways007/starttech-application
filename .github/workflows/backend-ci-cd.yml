@@ -115,7 +115,7 @@ jobs:
           aws ssm put-parameter --name "/starttech/JWT_SECRET_KEY" --value "${{ secrets.JWT_SECRET_KEY }}" --type SecureString --overwrite
           aws ssm put-parameter --name "/starttech/ECR_IMAGE" --value "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" --type String --overwrite
           aws autoscaling cancel-instance-refresh --auto-scaling-group-name starttech-asg || true
-          sleep 10
+          sleep 30
           aws autoscaling start-instance-refresh \
             --auto-scaling-group-name starttech-asg \
             --preferences MinHealthyPercentage=50,InstanceWarmup=60
