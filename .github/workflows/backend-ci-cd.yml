@@ -119,10 +119,8 @@ jobs:
             --preferences MinHealthyPercentage=50,InstanceWarmup=60
 
       - name: Wait for deployment to complete
-        run: |
-          aws autoscaling wait \
-            --auto-scaling-group-name starttech-asg
-
+        run: sleep 60
+          
       - name: Smoke test
         run: |
           ALB_DNS=$(aws elbv2 describe-load-balancers \
