@@ -1,6 +1,3 @@
-Paste this into `README.md`:
-
-```markdown
 # StartTech Application
 
 A full-stack todo application with React frontend and Golang backend, deployed on AWS with a complete CI/CD pipeline.
@@ -74,24 +71,22 @@ Triggers on push to `main` branch when files in `backend/` change.
 ## Manual Deployment
 
 ### Deploy Frontend
-```bash
 ./scripts/deploy-frontend.sh <s3-bucket-name> <cloudfront-distribution-id>
-```
+
 
 ### Deploy Backend
-```bash
 ./scripts/deploy-backend.sh <ecr-registry> <image-tag>
-```
+
 
 ### Health Check
-```bash
+
 ./scripts/health-check.sh
-```
+
 
 ### Rollback
-```bash
+
 ./scripts/rollback.sh <ecr-registry> <previous-image-tag>
-```
+
 
 ## GitHub Secrets Required
 

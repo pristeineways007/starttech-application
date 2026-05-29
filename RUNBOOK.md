@@ -1,6 +1,3 @@
-Paste this into `RUNBOOK.md`:
-
-```markdown
 # StartTech Runbook
 
 ## Operations and Troubleshooting Guide
@@ -8,22 +5,18 @@ Paste this into `RUNBOOK.md`:
 ## Deployments
 
 ### Deploy Frontend Manually
-```bash
 ./scripts/deploy-frontend.sh <s3-bucket-name> <cloudfront-distribution-id>
 ```
 
 ### Deploy Backend Manually
-```bash
 ./scripts/deploy-backend.sh <ecr-registry> <image-tag>
 ```
 
 ### Check Application Health
-```bash
 ./scripts/health-check.sh
 ```
 
 ### Rollback Backend
-```bash
 ./scripts/rollback.sh <ecr-registry> <previous-image-tag>
 ```
 
@@ -32,7 +25,6 @@ Paste this into `RUNBOOK.md`:
 ### Application is Down
 
 1. Run health check:
-```bash
 ./scripts/health-check.sh
 ```
 
@@ -58,7 +50,6 @@ Paste this into `RUNBOOK.md`:
 
 1. Check CloudWatch dashboard for CPU metrics
 2. If sustained high CPU, manually scale up:
-```bash
 aws autoscaling set-desired-capacity \
   --auto-scaling-group-name starttech-asg \
   --desired-capacity 4
@@ -81,25 +72,21 @@ aws autoscaling set-desired-capacity \
 ### SSH via Bastion Host
 
 1. Get bastion public IP from Terraform outputs:
-```bash
 cd starttech-infra/terraform
 terraform output bastion_public_ip
 ```
 
 2. SSH into bastion:
-```bash
 ssh -i ways.pem ec2-user@<bastion-public-ip>
-```
+
 
 3. From bastion, SSH into private EC2:
-```bash
 ssh -i ways.pem ec2-user@<private-ec2-ip>
-```
+
 
 ## Destroying Infrastructure
 
 When done, destroy all AWS resources to stop billing:
-```bash
 cd starttech-infra/terraform
 terraform destroy
 ```

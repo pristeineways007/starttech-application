@@ -1,6 +1,3 @@
-Paste this into `ARCHITECTURE.md`:
-
-```markdown
 # StartTech Architecture
 
 ## System Overview
